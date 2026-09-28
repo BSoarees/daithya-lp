@@ -1,0 +1,567 @@
+---
+import "../styles/global.css";
+import { modelos, wa, waModelo, brl, foto, SITE } from "../data/modelos";
+
+const title = "Daithya Bikes | Bicicletas elétricas no atacado para revenda";
+const description =
+  "Bicicletas elétricas no atacado para lojistas. A partir de R$ 1.400 por unidade, pedido mínimo de 3 unidades (pode misturar modelos) e entrega em todo o Brasil.";
+
+const vitrine = [
+  {
+    nome: "S2",
+    linha: "Exclusiva Daithya",
+    texto: "Visual de moto, motor de 1000W e rastreamento por GPS. Anda bem na cidade e chama atenção na loja.",
+    specs: [["Motor", "48V 1000W"], ["Bateria", "48V 15.6Ah"], ["Câmbio", "Shimano 7 marchas"], ["Segurança", "NFC, GPS e alarme"]],
+    de: 5700, por: 5500,
+    img: foto("s2-hero-front-cutout-2026-08-29.webp"),
+    id: "s2",
+  },
+  {
+    nome: "FHX-006 Pro",
+    linha: "Linha utilitária",
+    texto: "Para quem usa a bike pra trabalhar: entregador, mercado, oficina. Tem cesto central e bagageiro na frente e atrás.",
+    specs: [["Bateria", "48V 15.6Ah"], ["Carga", "Cesto central"], ["Bagageiro", "Dianteiro e traseiro"], ["Uso", "Entregas e trabalho"]],
+    de: 5200, por: 5000,
+    img: foto("fhx-006-family-transparent-2026-09-12.webp"),
+    id: "fhx-006-pro-15-6ah",
+  },
+  {
+    nome: "FHX-002 Pro",
+    linha: "Modelo Daithya",
+    texto: "Pneu largo, suspensão dupla e banco marrom. Um visual diferente para expor na entrada da loja.",
+    specs: [["Pneus", "20 × 4.0"], ["Suspensão", "Dianteira e traseira"], ["Segurança", "NFC e alarme"], ["Banco", "Marrom"]],
+    de: 5200, por: 5000,
+    img: foto("fhx-002-pro-transparent-2026-09-12.webp"),
+    id: "fhx-002-pro",
+  },
+];
+
+const passos = [
+  ["Escolha os modelos", "Mínimo de 3 bikes no total. Pode misturar, por exemplo 1 S2 e 2 FHX-006."],
+  ["Confirmação", "O comercial confere estoque, calcula o frete e passa a data de entrega."],
+  ["Pagamento", "Pix, boleto ou transferência. O primeiro pedido é pago à vista, antes do envio."],
+  ["Entrega", "Até 2 semanas para todo o Brasil, ou retirada com horário marcado em Guarulhos (SP)."],
+  ["Garantia", "1 ano contra defeito de fábrica e 2 anos de suporte remoto, a partir da nota fiscal."],
+];
+
+const faq = [
+  ["Qual é o pedido mínimo?", "3 unidades no total. Os modelos podem ser diferentes."],
+  ["Como é o pagamento?", "No primeiro pedido, o valor total é pago antes do envio, por Pix, boleto ou transferência."],
+  ["Como o frete é calculado?", "Pela quantidade de bikes e pela cidade de entrega. O comercial passa o valor antes de você fechar."],
+  ["Qual é o prazo de entrega?", "Até 2 semanas depois do pagamento, para todo o Brasil. Também dá para retirar em Guarulhos (SP) com horário marcado. As bikes vão na caixa original."],
+  ["Vocês ajudam na montagem?", "Em São Paulo, a equipe monta junto com você e mostra como funciona cada modelo. Nas outras cidades, mandamos as instruções e damos suporte por telefone e WhatsApp."],
+  ["E a garantia?", "1 ano contra defeito de fábrica e 2 anos de suporte remoto, contados a partir da nota fiscal."],
+];
+
+const disponiveis = modelos.filter((m) => !m.esgotado && m.por);
+const menorPreco = Math.min(...disponiveis.map((m) => m.por!));
+const linhas = [
+  ["todas", "Todas"],
+  ["urbana", "Urbanas"],
+  ["utilitaria", "Utilitárias"],
+  ["infantil", "Infantil e juvenil"],
+];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b0d0f" />
+    <!-- Versão de demonstração: não indexar para não competir com o site oficial -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${SITE}/_astro/daithya-share-card-1200x630.DFxNzJLO.png`} />
+    <link rel="icon" href={`${SITE}/favicon-32.png`} />
+    <link rel="preload" as="image" href={foto("s2-hero-front-cutout-2026-08-29.webp")} fetchpriority="high" />
+    <script is:inline>document.documentElement.classList.add("js")</script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Daithya Bikes",
+      url: SITE,
+      sameAs: ["https://www.instagram.com/daithyabikes/"],
+      contactPoint: { "@type": "ContactPoint", telephone: "+55-19-98362-8818", contactType: "sales", areaServed: "BR", availableLanguage: "pt-BR" },
+    })} />
+  </head>
+
+  <body class="bg-ink text-cream">
+    <!-- NAV -->
+    <header id="nav" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+        <a href="#topo" aria-label="Daithya Bikes, início">
+          <img src={foto("daithya-option-b-light.png")} alt="Daithya Bikes" class="h-8 w-auto md:h-9" />
+        </a>
+        <nav class="hidden items-center gap-8 text-sm text-cream/70 lg:flex">
+          <a href="#linha" class="transition hover:text-cream">Destaques</a>
+          <a href="#modelos" class="transition hover:text-cream">Modelos e preços</a>
+          <a href="#simulador" class="transition hover:text-cream">Simular pedido</a>
+          <a href="#como-funciona" class="transition hover:text-cream">Como comprar</a>
+          <a href="#duvidas" class="transition hover:text-cream">Dúvidas</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <button type="button" data-cart-open aria-label="Abrir carrinho"
+            class="relative flex h-11 w-11 items-center justify-center rounded-sm border border-cream/20 transition hover:border-cream/60">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+            <span id="cart-count" class="absolute -right-1.5 -top-1.5 hidden h-5 min-w-5 items-center justify-center rounded-full bg-fire px-1 text-[11px] font-bold text-ink">0</span>
+          </button>
+          <a href={wa("Olá, tenho uma loja e quero revender Daithya Bikes.")} target="_blank" rel="noopener" data-track="nav"
+            class="hidden rounded-sm bg-fire px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-fire-2 sm:block">
+            Quero revender
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="topo">
+      <!-- HERO (visual da primeira versão: nome vazado ao fundo, bike flutuando e destaques em volta) -->
+      <section class="relative flex min-h-[100svh] items-center overflow-hidden pt-24">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+          <div class="hero-glow absolute right-[-10%] top-1/2 h-[70vmax] w-[70vmax] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(255_90_31/0.38),rgb(255_90_31/0.08)_45%,transparent_70%)] blur-2xl"></div>
+          <p class="hero-word text-outline font-display absolute -bottom-[3%] left-1/2 -translate-x-1/2 select-none whitespace-nowrap text-[26vw] font-bold leading-none tracking-tighter">DAITHYA</p>
+        </div>
+
+        <div class="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 md:px-8 lg:grid-cols-[1.05fr_1fr]">
+          <div class="max-w-2xl">
+            <p class="hero-in mb-6 inline-flex items-center gap-2 rounded-full border border-cream/15 bg-cream/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-cream/80">
+              <span class="h-1.5 w-1.5 rounded-full bg-fire"></span> Atacado para lojistas
+            </p>
+            <h1 class="hero-in font-display text-[clamp(2.6rem,6vw,5rem)] font-bold leading-[0.95] tracking-tight">
+              Bicicletas elétricas <span class="text-fire">no atacado</span> para a sua loja.
+            </h1>
+            <p class="hero-in mt-6 max-w-xl text-lg text-cream/70">
+              A partir de <strong class="text-cream">{brl(menorPreco)}</strong> por unidade. Pedido mínimo de 3 bikes, podendo misturar modelos. Entrega em todo o Brasil.
+            </p>
+            <div class="hero-in mt-9 flex flex-wrap gap-3">
+              <a href="#modelos" class="rounded-sm bg-fire px-7 py-4 font-semibold text-ink transition hover:bg-fire-2">Ver modelos e preços</a>
+              <a href={wa("Olá, tenho uma loja e quero revender Daithya Bikes.")} target="_blank" rel="noopener" data-track="hero"
+                class="rounded-sm border border-cream/25 px-7 py-4 font-semibold transition hover:border-cream/60">Falar com o comercial</a>
+            </div>
+            <dl class="hero-in mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-cream/10 pt-8">
+              <div><dt class="text-xs uppercase tracking-wider text-cream/50">Pedido mínimo</dt><dd class="font-display mt-1 text-2xl font-bold">3 un.</dd></div>
+              <div><dt class="text-xs uppercase tracking-wider text-cream/50">Entrega</dt><dd class="font-display mt-1 text-2xl font-bold">até 2 sem.</dd></div>
+              <div><dt class="text-xs uppercase tracking-wider text-cream/50">Garantia</dt><dd class="font-display mt-1 text-2xl font-bold">1 ano</dd></div>
+            </dl>
+          </div>
+
+          <div class="relative mx-auto w-full max-w-xl">
+            <div class="hero-bike float relative">
+              <img src={foto("s2-hero-front-cutout-2026-08-29.webp")} alt="Bicicleta elétrica Daithya S2 preta, vista frontal" width="960" height="960"
+                fetchpriority="high" class="relative z-10 w-full drop-shadow-[0_40px_60px_rgba(0,0,0,0.7)]" />
+            </div>
+            <div class="chip absolute left-0 top-[12%] z-20 rounded-2xl border border-cream/10 bg-ink-2/80 px-4 py-3 backdrop-blur-md">
+              <p class="text-[10px] uppercase tracking-widest text-cream/50">Motor</p>
+              <p class="font-display text-lg font-bold">48V · 1000W</p>
+            </div>
+            <div class="chip absolute right-0 top-[40%] z-20 rounded-2xl border border-cream/10 bg-ink-2/80 px-4 py-3 backdrop-blur-md">
+              <p class="text-[10px] uppercase tracking-widest text-cream/50">Segurança</p>
+              <p class="font-display text-lg font-bold">NFC · GPS · Alarme</p>
+            </div>
+            <div class="chip absolute bottom-[8%] left-[8%] z-20 rounded-2xl bg-fire px-4 py-3 text-ink shadow-[0_20px_50px_rgba(255,90,31,0.4)]">
+              <p class="text-[10px] font-semibold uppercase tracking-widest text-ink/70">S2 no atacado</p>
+              <p class="font-display text-lg font-bold">{brl(5500)} <span class="text-sm font-medium">/un.</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESTAQUES: um modelo embaixo do outro, rolagem normal -->
+      <section id="linha" class="border-t border-cream/10">
+        {vitrine.map((v, i) => (
+          <article class={`relative overflow-hidden ${i % 2 ? "bg-ink-2" : "bg-ink"}`}>
+            <div class={`mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-2 lg:gap-16`}>
+              <div class={`relative ${i % 2 ? "lg:order-2" : ""}`}>
+                <div aria-hidden="true" class="absolute inset-[10%] rounded-full bg-[radial-gradient(circle,rgb(255_90_31/0.22),transparent_65%)] blur-2xl"></div>
+                <img src={v.img} alt={`Daithya ${v.nome}`} loading={i === 0 ? "eager" : "lazy"} data-parallax
+                  class="relative mx-auto w-full max-w-[600px] drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]" />
+              </div>
+              <div data-reveal class={i % 2 ? "lg:order-1" : ""}>
+                <p class="text-sm font-medium text-fire">{v.linha}</p>
+                <h2 class="font-display mt-2 text-5xl font-bold tracking-tight md:text-7xl">{v.nome}</h2>
+                <p class="mt-5 max-w-md text-lg leading-relaxed text-cream/70">{v.texto}</p>
+                <dl class="mt-8 max-w-md divide-y divide-cream/10 border-y border-cream/10">
+                  {v.specs.map(([k, val]) => (
+                    <div class="flex justify-between gap-6 py-3 text-sm">
+                      <dt class="text-cream/50">{k}</dt>
+                      <dd class="text-right font-medium">{val}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5">
+                  <p>
+                    <span class="block text-sm text-cream/45">de <s>{brl(v.de)}</s> por</span>
+                    <span class="font-display text-4xl font-bold">{brl(v.por)}</span>
+                    <span class="text-cream/55"> /un.</span>
+                  </p>
+                  <div class="flex gap-2">
+                    <button type="button" data-add={v.id} class="rounded-sm bg-fire px-5 py-3 text-sm font-semibold text-ink transition hover:bg-fire-2">Adicionar ao carrinho</button>
+                    <a href={waModelo(v.nome)} target="_blank" rel="noopener" data-track={`destaque-${v.id}`} class="rounded-sm border border-cream/25 px-5 py-3 text-sm font-semibold transition hover:border-cream/60">Tirar dúvida no WhatsApp</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <!-- S2 EM DETALHES -->
+      <section class="bg-cream py-24 text-ink md:py-28">
+        <div class="mx-auto max-w-7xl px-5 md:px-8">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <h2 data-reveal class="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight">S2 em detalhes</h2>
+            <a href={`${SITE}/modelos/s2/`} class="font-semibold underline decoration-fire decoration-2 underline-offset-4">Ficha técnica completa</a>
+          </div>
+
+          <div class="mt-12 grid items-start gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
+            <div data-reveal class="relative">
+              <img src={foto("s2-side-studio-2026-08-29.webp")} alt="Daithya S2 em vista lateral" loading="lazy" width="1448" height="1086" class="w-full rounded-sm" />
+              {[
+                ["44%", "30%", "Bateria 48V 15.6Ah removível"],
+                ["30%", "63%", "Suspensão dianteira"],
+                ["63%", "47%", "Suspensão traseira"],
+                ["21%", "73%", "Pneu 20 × 4.0"],
+              ].map(([x, y, label]) => (
+                <div class="group/h absolute" style={`left:${x};top:${y}`}>
+                  <span class="relative flex h-5 w-5 cursor-help items-center justify-center" tabindex="0">
+                    <span class="absolute inset-0 animate-ping rounded-full bg-fire/50"></span>
+                    <span class="relative h-3 w-3 rounded-full border-2 border-white bg-fire"></span>
+                  </span>
+                  <span class="pointer-events-none absolute left-1/2 top-7 w-max -translate-x-1/2 rounded-sm bg-ink px-3 py-1.5 text-xs font-medium text-cream opacity-0 transition group-hover/h:opacity-100 group-focus-within/h:opacity-100">{label}</span>
+                </div>
+              ))}
+            </div>
+
+            <dl data-reveal class="divide-y divide-ink/10 border-y border-ink/10">
+              {[
+                ["Motor", "48V 1000W"],
+                ["Bateria", "48V 15.6Ah"],
+                ["Câmbio", "Shimano 7 marchas"],
+                ["Suspensão", "Dianteira e traseira"],
+                ["Pneus", "20 × 4.0"],
+                ["Segurança", "NFC, GPS e alarme antifurto"],
+                ["Sinalização", "Setas dianteiras e traseiras"],
+              ].map(([k, v]) => (
+                <div class="flex justify-between gap-6 py-4">
+                  <dt class="text-ink/55">{k}</dt>
+                  <dd class="text-right font-semibold">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATÁLOGO -->
+      <section id="modelos" class="py-24 md:py-28">
+        <div class="mx-auto max-w-7xl px-5 md:px-8">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <h2 data-reveal class="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight">Modelos e preços de atacado</h2>
+              <p data-reveal class="mt-3 max-w-xl text-cream/60">Preço por unidade para pedidos a partir de 3 bikes. Frete calculado conforme a cidade.</p>
+            </div>
+            <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm" role="group" aria-label="Filtrar por linha">
+              {linhas.map(([k, l], i) => (
+                <button type="button" data-filtro={k} aria-pressed={i === 0 ? "true" : "false"}
+                  class="border-b-2 border-transparent pb-1 text-cream/55 transition hover:text-cream aria-pressed:border-fire aria-pressed:text-cream">{l}</button>
+              ))}
+            </div>
+          </div>
+
+          <div id="grade" class="mt-12 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {modelos.map((m) => (
+              <article data-linha={m.linha} class="card group flex flex-col">
+                <div class="relative aspect-[4/3] overflow-hidden rounded-sm bg-white p-5">
+                  <img src={m.img} alt={`Daithya ${m.nome}`} loading="lazy" class={`h-full w-full object-contain transition duration-500 group-hover:scale-105 ${m.esgotado ? "opacity-45 grayscale" : ""}`} />
+                  {m.esgotado && <span class="absolute left-0 top-4 bg-ink px-3 py-1 text-xs font-semibold text-cream">Esgotado</span>}
+                  {m.destaque && !m.esgotado && <span class="absolute left-0 top-4 bg-fire px-3 py-1 text-xs font-semibold text-ink">{m.destaque}</span>}
+                </div>
+                <div class="flex flex-1 flex-col pt-5">
+                  <p class="text-sm text-cream/45">{m.selo}</p>
+                  <h3 class="font-display mt-0.5 text-2xl font-bold">{m.nome}</h3>
+                  {m.familia && <p class="mt-1 text-xs text-cream/40">Foto ilustrativa da família. Confirme a versão.</p>}
+                  <div class="mt-3 flex-1">
+                    {m.por ? (
+                      <p>
+                        <span class="text-sm text-cream/40">de <s>{brl(m.de!)}</s> por </span>
+                        <span class="font-display text-2xl font-bold">{brl(m.por)}</span>
+                        <span class="text-sm text-cream/50"> /un.</span>
+                      </p>
+                    ) : (
+                      <p class="font-display text-2xl font-bold">Preço sob consulta</p>
+                    )}
+                  </div>
+                  <div class="mt-5 flex gap-2">
+                    {m.esgotado ? (
+                      <a href={waModelo(m.nome, true)} target="_blank" rel="noopener" data-track={`avise-${m.id}`} class="flex-1 rounded-sm border border-cream/25 px-4 py-3 text-center text-sm font-semibold transition hover:border-cream/60">Avise-me quando chegar</a>
+                    ) : (
+                      <>
+                        {m.por ? (
+                          <button type="button" data-add={m.id} class="flex-1 rounded-sm bg-cream px-4 py-3 text-sm font-semibold text-ink transition hover:bg-fire">Adicionar ao carrinho</button>
+                        ) : (
+                          <a href={waModelo(m.nome)} target="_blank" rel="noopener" data-track={`card-${m.id}`} class="flex-1 rounded-sm bg-cream px-4 py-3 text-center text-sm font-semibold text-ink transition hover:bg-fire">Consultar preço</a>
+                        )}
+                        {m.por && <a href={waModelo(m.nome)} target="_blank" rel="noopener" data-track={`card-${m.id}`} aria-label={`Tirar dúvida sobre ${m.nome} no WhatsApp`} class="flex items-center rounded-sm border border-cream/25 px-3.5 transition hover:border-cream/60"><svg viewBox="0 0 32 32" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.5.7 4.9 2 6.9L3.2 29l6.7-2c2 1.1 4.2 1.6 6.1 1.6 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23.1c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4 1.2 1.2-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.5 9.9 10.2 5.3 16 5.3S26.5 9.9 26.5 15.6 21.8 26.1 16 26.1z"/></svg></a>}
+                      </>
+                    )}
+                  </div>
+                  <a href={`${SITE}/modelos/${m.id}/`} class="mt-3 text-sm text-cream/45 underline-offset-2 hover:text-cream hover:underline">Ficha técnica</a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div data-reveal class="mt-16 flex flex-wrap items-center justify-between gap-6 border-y border-cream/10 py-8">
+            <div>
+              <p class="font-display text-2xl font-bold md:text-3xl">Pedido de 10 bikes ou mais?</p>
+              <p class="mt-1 text-cream/60">Tem condição especial. Fale direto com o comercial.</p>
+            </div>
+            <a href={wa("Olá, tenho uma loja e quero negociar um pedido de 10 ou mais bikes Daithya.")} target="_blank" rel="noopener" data-track="10mais" class="rounded-sm bg-fire px-7 py-4 font-semibold text-ink transition hover:bg-fire-2">Negociar pedido</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIMULADOR -->
+      <section id="simulador" class="bg-ink-2 py-24 md:py-28">
+        <div class="mx-auto max-w-7xl px-5 md:px-8">
+          <h2 data-reveal class="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight">Simule seu pedido</h2>
+          <p data-reveal class="mt-3 max-w-2xl text-cream/60">Escolha as quantidades e a margem que você costuma aplicar. A conta mostra quanto você investe e quanto pode faturar na revenda.</p>
+
+          <div class="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-14">
+            <div data-reveal>
+              <div class="hidden grid-cols-[1fr_auto_auto] gap-6 border-b border-cream/15 pb-3 text-sm text-cream/45 sm:grid">
+                <span>Modelo</span><span class="w-28 text-right">Preço /un.</span><span class="w-32 text-center">Quantidade</span>
+              </div>
+              <ul id="sim-lista" class="divide-y divide-cream/10 border-b border-cream/10">
+                {disponiveis.map((m) => (
+                  <li class="grid grid-cols-[1fr_auto] items-center gap-x-4 py-3 transition-colors sm:grid-cols-[1fr_auto_auto] sm:gap-6" data-sim={m.id} data-preco={m.por} data-nome={m.nome}>
+                    <div class="flex min-w-0 items-center gap-3">
+                      <img src={m.img} alt="" loading="lazy" class="h-11 w-14 shrink-0 rounded-sm bg-white object-contain" />
+                      <div class="min-w-0">
+                        <p class="font-semibold leading-tight">{m.nome}</p>
+                        <p class="text-sm text-cream/50 sm:hidden">{brl(m.por!)} /un.</p>
+                      </div>
+                    </div>
+                    <p class="hidden w-28 text-right tabular-nums text-cream/70 sm:block">{brl(m.por!)}</p>
+                    <div class="flex w-32 items-center justify-between">
+                      <button type="button" data-step="-1" aria-label={`Menos uma ${m.nome}`} class="h-9 w-9 rounded-sm border border-cream/20 text-lg transition hover:border-cream/60">−</button>
+                      <output class="qty font-display text-center text-lg font-bold tabular-nums">0</output>
+                      <button type="button" data-step="1" aria-label={`Mais uma ${m.nome}`} class="h-9 w-9 rounded-sm border border-cream/20 text-lg transition hover:border-cream/60">+</button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <aside data-reveal class="lg:sticky lg:top-24 lg:self-start">
+              <label for="markup" class="flex items-baseline justify-between gap-4 text-cream/70">
+                Margem sobre o preço de atacado
+                <span id="markup-out" class="font-display text-2xl font-bold text-cream">35%</span>
+              </label>
+              <input id="markup" type="range" min="10" max="80" step="5" value="35" class="mt-4 w-full" />
+
+              <dl class="mt-8 divide-y divide-cream/10 border-y border-cream/10">
+                <div class="flex justify-between py-3"><dt class="text-cream/60">Bikes no pedido</dt><dd id="r-qtd" class="font-semibold tabular-nums">0</dd></div>
+                <div class="flex justify-between py-3"><dt class="text-cream/60">Investimento no atacado</dt><dd id="r-custo" class="font-semibold tabular-nums">R$ 0</dd></div>
+                <div class="flex justify-between py-3"><dt class="text-cream/60">Faturamento na revenda</dt><dd id="r-venda" class="font-semibold tabular-nums">R$ 0</dd></div>
+              </dl>
+              <div class="mt-6">
+                <p class="text-cream/60">Lucro bruto estimado</p>
+                <p id="r-lucro" class="font-display mt-1 text-5xl font-bold tracking-tight text-fire tabular-nums">R$ 0</p>
+                <p id="r-aviso" class="mt-2 text-sm text-cream/60">Escolha pelo menos 3 bikes.</p>
+              </div>
+              <button type="button" id="sim-carrinho" data-cart-open disabled
+                class="mt-6 flex w-full items-center justify-center rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2 disabled:pointer-events-none disabled:opacity-35">
+                Finalizar compra no carrinho
+              </button>
+              <a id="sim-enviar" href="#" target="_blank" rel="noopener" data-track="simulador" aria-disabled="true"
+                class="mt-2 flex items-center justify-center rounded-sm border border-cream/20 px-6 py-3.5 text-sm font-semibold transition hover:border-cream/60 aria-disabled:pointer-events-none aria-disabled:opacity-35">
+                Prefiro enviar pelo WhatsApp
+              </a>
+              <p class="mt-3 text-xs text-cream/40">Valores sem frete e impostos. O comercial confirma estoque e preço final.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMO FUNCIONA + CONDIÇÕES -->
+      <section id="como-funciona" class="py-24 md:py-28">
+        <div class="mx-auto max-w-7xl px-5 md:px-8">
+          <h2 data-reveal class="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight">Como comprar</h2>
+          <ol class="mt-12 border-t border-cream/10">
+            {passos.map(([t, d], i) => (
+              <li data-reveal class="grid gap-2 border-b border-cream/10 py-6 md:grid-cols-[4rem_16rem_1fr] md:items-baseline md:gap-8">
+                <span class="font-display text-lg font-bold text-fire tabular-nums">0{i + 1}</span>
+                <h3 class="font-display text-xl font-bold">{t}</h3>
+                <p class="text-cream/65">{d}</p>
+              </li>
+            ))}
+          </ol>
+          <p data-reveal class="mt-8 max-w-2xl text-cream/60">
+            <strong class="font-semibold text-cream">Montagem:</strong> em São Paulo, a equipe monta as bikes junto com você. Nas outras cidades, mandamos as instruções e damos suporte à distância.
+          </p>
+        </div>
+      </section>
+
+      <!-- DÚVIDAS -->
+      <section id="duvidas" class="border-t border-cream/10 py-24 md:py-28">
+        <div class="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-[1fr_1.6fr]">
+          <div>
+            <h2 data-reveal class="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight">Dúvidas frequentes</h2>
+            <p data-reveal class="mt-4 text-cream/60">Não achou o que procurava? Chame o comercial no WhatsApp.</p>
+          </div>
+          <div class="divide-y divide-cream/10 border-y border-cream/10">
+            {faq.map(([q, a]) => (
+              <details data-reveal class="group">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+                  {q}
+                  <span class="text-2xl font-light text-cream/50 transition duration-300 group-open:rotate-45 group-open:text-fire">+</span>
+                </summary>
+                <p class="pb-6 pr-10 leading-relaxed text-cream/65">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA FINAL -->
+      <section class="bg-fire text-ink">
+        <div class="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-8 px-5 py-20 md:px-8 md:py-24">
+          <div class="max-w-2xl">
+            <h2 class="font-display text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1] tracking-tight">Monte o pedido da sua loja.</h2>
+            <p class="mt-4 text-lg text-ink/75">Diga quais modelos quer e para qual cidade. O comercial responde com estoque, frete e prazo.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href={wa("Olá, tenho uma loja e quero montar um pedido Daithya.")} target="_blank" rel="noopener" data-track="cta-final" class="rounded-sm bg-ink px-8 py-4 font-semibold text-cream transition hover:bg-ink-3">Falar no WhatsApp</a>
+            <a href="mailto:derick@zheng.com.br" class="rounded-sm border border-ink/40 px-8 py-4 font-semibold transition hover:border-ink">Enviar e-mail</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="px-5 py-12 md:px-8">
+      <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 text-sm text-cream/50">
+        <img src={foto("daithya-option-b-light.png")} alt="Daithya Bikes" class="h-7 w-auto opacity-80" />
+        <nav class="flex flex-wrap gap-6">
+          <a href="#modelos" class="hover:text-cream">Modelos</a>
+          <a href={`${SITE}/sobre/`} class="hover:text-cream">Sobre a Daithya</a>
+          <a href="https://www.instagram.com/daithyabikes/" target="_blank" rel="noopener" class="hover:text-cream">Instagram</a>
+          <a href="mailto:derick@zheng.com.br" class="hover:text-cream">derick@zheng.com.br</a>
+        </nav>
+        <!-- TODO: CNPJ e razão social aqui (sinal de confiança pra quem paga adiantado) -->
+        <p class="w-full text-xs text-cream/30">Daithya Bikes. Bicicletas elétricas para lojistas e revendedores.</p>
+      </div>
+    </footer>
+
+    <!-- WhatsApp flutuante -->
+    <a href={wa("Olá, tenho uma loja e quero revender Daithya Bikes.")} target="_blank" rel="noopener" data-track="flutuante" aria-label="Falar com o comercial no WhatsApp"
+      class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-xl transition hover:scale-105">
+      <svg viewBox="0 0 32 32" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.5.7 4.9 2 6.9L3.2 29l6.7-2c2 1.1 4.2 1.6 6.1 1.6 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23.1c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4 1.2 1.2-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.5 9.9 10.2 5.3 16 5.3S26.5 9.9 26.5 15.6 21.8 26.1 16 26.1zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+    </a>
+
+    <!-- CARRINHO (gaveta lateral). Demonstração: nada é cobrado e nenhum dado sai do navegador. -->
+    <div id="cart" class="pointer-events-none fixed inset-0 z-[70]" aria-hidden="true">
+      <div data-cart-close class="cart-fade absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300"></div>
+      <aside role="dialog" aria-modal="true" aria-labelledby="cart-titulo"
+        class="cart-panel absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col bg-ink-2 shadow-2xl transition-transform duration-300 ease-out">
+        <header class="flex items-center justify-between border-b border-cream/10 px-6 py-5">
+          <div>
+            <h2 id="cart-titulo" class="font-display text-xl font-bold">Seu carrinho</h2>
+            <ol class="mt-1 flex gap-3 text-xs text-cream/40">
+              <li data-etapa-ind="1">1. Carrinho</li><li data-etapa-ind="2">2. Dados da loja</li><li data-etapa-ind="3">3. Pedido</li>
+            </ol>
+          </div>
+          <button type="button" data-cart-close aria-label="Fechar carrinho" class="h-10 w-10 rounded-sm text-2xl text-cream/60 transition hover:bg-cream/10 hover:text-cream">×</button>
+        </header>
+        <p class="border-b border-fire/30 bg-fire/10 px-6 py-2.5 text-xs text-fire-3">Versão de demonstração: nenhum pagamento é cobrado e os dados não são enviados.</p>
+
+        <!-- Etapa 1: itens -->
+        <section data-etapa="1" class="flex min-h-0 flex-1 flex-col">
+          <ul id="cart-itens" class="min-h-0 flex-1 divide-y divide-cream/10 overflow-y-auto px-6" data-lenis-prevent></ul>
+          <div id="cart-vazio" class="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center text-cream/55">
+            <p>Seu carrinho está vazio.</p>
+            <a href="#modelos" data-cart-close class="font-semibold text-cream underline decoration-fire decoration-2 underline-offset-4">Ver modelos e preços</a>
+          </div>
+          <footer class="border-t border-cream/10 px-6 py-5">
+            <div class="h-1.5 overflow-hidden rounded-full bg-cream/10"><div id="cart-barra" class="h-full w-0 bg-fire transition-all duration-500"></div></div>
+            <p id="cart-minimo" class="mt-2 text-sm text-cream/60"></p>
+            <dl class="mt-4 space-y-1.5 text-sm">
+              <div class="flex justify-between"><dt class="text-cream/60">Subtotal</dt><dd id="cart-subtotal" class="font-semibold tabular-nums">R$ 0</dd></div>
+              <div class="flex justify-between"><dt class="text-cream/60">Frete</dt><dd class="text-cream/60">Calculado pela cidade</dd></div>
+            </dl>
+            <button type="button" id="cart-avancar" disabled class="mt-5 w-full rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2 disabled:pointer-events-none disabled:opacity-35">Continuar</button>
+          </footer>
+        </section>
+
+        <!-- Etapa 2: dados da loja -->
+        <form data-etapa="2" id="cart-form" hidden class="flex min-h-0 flex-1 flex-col" novalidate>
+          <div class="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-6" data-lenis-prevent>
+            <fieldset class="space-y-3">
+              <legend class="mb-2 font-semibold">Dados da loja</legend>
+              <label class="block text-sm text-cream/60">CNPJ<input name="cnpj" required inputmode="numeric" placeholder="00.000.000/0000-00" class="campo" /></label>
+              <label class="block text-sm text-cream/60">Razão social<input name="razao" required class="campo" /></label>
+              <label class="block text-sm text-cream/60">Nome do responsável<input name="nome" required autocomplete="name" class="campo" /></label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm text-cream/60">WhatsApp<input name="fone" required inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" class="campo" /></label>
+                <label class="block text-sm text-cream/60">E-mail<input name="email" type="email" required autocomplete="email" class="campo" /></label>
+              </div>
+            </fieldset>
+            <fieldset class="space-y-2">
+              <legend class="mb-2 font-semibold">Entrega</legend>
+              <label class="opcao"><input type="radio" name="entrega" value="entrega" checked /> <span><b>Receber na loja</b><br /><span class="text-cream/55">Até 2 semanas. Frete calculado pela cidade.</span></span></label>
+              <label class="opcao"><input type="radio" name="entrega" value="retirada" /> <span><b>Retirar em Guarulhos (SP)</b><br /><span class="text-cream/55">Com horário marcado. Sem frete.</span></span></label>
+              <div id="cart-endereco" class="grid grid-cols-[1fr_2fr] gap-3 pt-1">
+                <label class="block text-sm text-cream/60">CEP<input name="cep" inputmode="numeric" placeholder="00000-000" class="campo" /></label>
+                <label class="block text-sm text-cream/60">Cidade / UF<input name="cidade" placeholder="São Paulo / SP" class="campo" /></label>
+              </div>
+            </fieldset>
+            <fieldset class="space-y-2">
+              <legend class="mb-2 font-semibold">Pagamento</legend>
+              <label class="opcao"><input type="radio" name="pagamento" value="Pix" checked /> <span><b>Pix</b><br /><span class="text-cream/55">Aprovação na hora.</span></span></label>
+              <label class="opcao"><input type="radio" name="pagamento" value="Boleto" /> <span><b>Boleto</b><br /><span class="text-cream/55">Compensa em até 3 dias úteis.</span></span></label>
+              <label class="opcao"><input type="radio" name="pagamento" value="Transferência" /> <span><b>Transferência bancária</b><br /><span class="text-cream/55">Dados enviados após a confirmação.</span></span></label>
+            </fieldset>
+            <p id="cart-erro" class="hidden text-sm text-fire-3" role="alert">Preencha os campos obrigatórios.</p>
+          </div>
+          <footer class="flex gap-2 border-t border-cream/10 px-6 py-5">
+            <button type="button" data-voltar class="rounded-sm border border-cream/20 px-5 py-4 font-semibold transition hover:border-cream/60">Voltar</button>
+            <button type="submit" class="flex-1 rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2">Finalizar pedido</button>
+          </footer>
+        </form>
+
+        <!-- Etapa 3: confirmação -->
+        <section data-etapa="3" hidden class="flex min-h-0 flex-1 flex-col">
+          <div class="min-h-0 flex-1 overflow-y-auto px-6 py-8" data-lenis-prevent>
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-fire text-2xl text-ink">✓</div>
+            <h3 class="font-display mt-5 text-3xl font-bold">Pedido recebido</h3>
+            <p class="mt-1 text-cream/60">Número <b id="ok-numero" class="text-cream"></b></p>
+            <div id="ok-pagamento" class="mt-6 rounded-sm border border-dashed border-cream/25 p-5 text-sm text-cream/70"></div>
+            <h4 class="mt-8 font-semibold">Resumo</h4>
+            <ul id="ok-itens" class="mt-2 divide-y divide-cream/10 border-y border-cream/10 text-sm"></ul>
+            <p class="mt-3 flex justify-between text-sm"><span class="text-cream/60">Total dos produtos</span><b id="ok-total" class="tabular-nums"></b></p>
+            <h4 class="mt-8 font-semibold">Próximos passos</h4>
+            <ol class="mt-2 list-decimal space-y-1.5 pl-5 text-sm text-cream/65">
+              <li>O comercial confirma o estoque e calcula o frete.</li>
+              <li>Você recebe a confirmação por WhatsApp e e-mail.</li>
+              <li>Após o pagamento, as bikes são enviadas em até 2 semanas.</li>
+            </ol>
+          </div>
+          <footer class="border-t border-cream/10 px-6 py-5">
+            <button type="button" id="ok-novo" class="w-full rounded-sm bg-cream px-6 py-4 font-semibold text-ink transition hover:bg-fire">Fazer outro pedido</button>
+          </footer>
+        </section>
+      </aside>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite" class="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 translate-y-24 rounded-sm bg-cream px-5 py-3 text-sm font-semibold text-ink opacity-0 shadow-2xl transition duration-300"></div>
+
+    <script>
+      import "../scripts/main.ts";
+    </script>
+  </body>
+</html>
