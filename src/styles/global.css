@@ -54,36 +54,3 @@ input[type="range"] { accent-color: var(--color-fire); }
 }
 .float { animation: float 6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .float { animation: none; } }
-
-/* Carrinho */
-#cart.aberto { pointer-events: auto; }
-#cart.aberto .cart-fade { opacity: 1; }
-#cart.aberto .cart-panel { translate: 0 0; }
-.campo {
-  display: block;
-  width: 100%;
-  margin-top: 0.35rem;
-  border: 1px solid rgb(244 241 234 / 0.15);
-  border-radius: 2px;
-  background: var(--color-ink);
-  padding: 0.7rem 0.85rem;
-  color: var(--color-cream);
-  font-size: 0.95rem;
-  transition: border-color 0.2s;
-}
-.campo:focus { outline: none; border-color: var(--color-fire); }
-.campo[aria-invalid="true"] { border-color: var(--color-fire-3); }
-.opcao {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-  cursor: pointer;
-  border: 1px solid rgb(244 241 234 / 0.12);
-  border-radius: 2px;
-  padding: 0.8rem 0.9rem;
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
-}
-.opcao:has(input:checked) { border-color: var(--color-fire); background: rgb(255 90 31 / 0.06); }
-.opcao input { margin-top: 0.2rem; accent-color: var(--color-fire); }
-[data-etapa-ind].atual { color: var(--color-cream); font-weight: 600; }

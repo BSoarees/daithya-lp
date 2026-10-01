@@ -1,17 +1,15 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { iniciarCarrinho } from "./carrinho";
+import { iniciarSimulador } from "./simulador";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- Rolagem suave ---------- */
-let lenis: Lenis | null = null;
 if (!calmo) {
   const l = new Lenis({ lerp: 0.12 });
-  lenis = l;
   l.on("scroll", ScrollTrigger.update);
   gsap.ticker.add((t) => l.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -20,7 +18,6 @@ if (!calmo) {
       const alvo = a.getAttribute("href")!;
       if (alvo.length < 2) return;
       e.preventDefault();
-      l.start(); // o carrinho aberto pausa a rolagem
       l.scrollTo(alvo, { offset: -70 });
     }),
   );
@@ -58,8 +55,8 @@ if (!calmo) {
   document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => (el.style.opacity = "1"));
 }
 
-/* ---------- Carrinho e simulador ---------- */
-iniciarCarrinho(lenis);
+/* ---------- Simulador ---------- */
+iniciarSimulador();
 
 /* ---------- Filtro do catálogo ---------- */
 const filtros = document.querySelectorAll<HTMLButtonElement>("[data-filtro]");

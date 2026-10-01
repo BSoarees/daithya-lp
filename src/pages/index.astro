@@ -106,11 +106,6 @@ const linhas = [
           <a href="#duvidas" class="transition hover:text-cream">Dúvidas</a>
         </nav>
         <div class="flex items-center gap-2">
-          <button type="button" data-cart-open aria-label="Abrir carrinho"
-            class="relative flex h-11 w-11 items-center justify-center rounded-sm border border-cream/20 transition hover:border-cream/60">
-            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
-            <span id="cart-count" class="absolute -right-1.5 -top-1.5 hidden h-5 min-w-5 items-center justify-center rounded-full bg-fire px-1 text-[11px] font-bold text-ink">0</span>
-          </button>
           <a href={wa("Olá, tenho uma loja e quero revender Daithya Bikes.")} target="_blank" rel="noopener" data-track="nav"
             class="hidden rounded-sm bg-fire px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-fire-2 sm:block">
             Quero revender
@@ -200,8 +195,8 @@ const linhas = [
                     <span class="text-cream/55"> /un.</span>
                   </p>
                   <div class="flex gap-2">
-                    <button type="button" data-add={v.id} class="rounded-sm bg-fire px-5 py-3 text-sm font-semibold text-ink transition hover:bg-fire-2">Adicionar ao carrinho</button>
-                    <a href={waModelo(v.nome)} target="_blank" rel="noopener" data-track={`destaque-${v.id}`} class="rounded-sm border border-cream/25 px-5 py-3 text-sm font-semibold transition hover:border-cream/60">Tirar dúvida no WhatsApp</a>
+                    <a href={waModelo(v.nome)} target="_blank" rel="noopener" data-track={`destaque-${v.id}`} class="rounded-sm bg-fire px-5 py-3 text-sm font-semibold text-ink transition hover:bg-fire-2">Pedir pelo WhatsApp</a>
+                    <a href="#simulador" class="rounded-sm border border-cream/25 px-5 py-3 text-sm font-semibold transition hover:border-cream/60">Simular pedido</a>
                   </div>
                 </div>
               </div>
@@ -300,14 +295,7 @@ const linhas = [
                     {m.esgotado ? (
                       <a href={waModelo(m.nome, true)} target="_blank" rel="noopener" data-track={`avise-${m.id}`} class="flex-1 rounded-sm border border-cream/25 px-4 py-3 text-center text-sm font-semibold transition hover:border-cream/60">Avise-me quando chegar</a>
                     ) : (
-                      <>
-                        {m.por ? (
-                          <button type="button" data-add={m.id} class="flex-1 rounded-sm bg-cream px-4 py-3 text-sm font-semibold text-ink transition hover:bg-fire">Adicionar ao carrinho</button>
-                        ) : (
-                          <a href={waModelo(m.nome)} target="_blank" rel="noopener" data-track={`card-${m.id}`} class="flex-1 rounded-sm bg-cream px-4 py-3 text-center text-sm font-semibold text-ink transition hover:bg-fire">Consultar preço</a>
-                        )}
-                        {m.por && <a href={waModelo(m.nome)} target="_blank" rel="noopener" data-track={`card-${m.id}`} aria-label={`Tirar dúvida sobre ${m.nome} no WhatsApp`} class="flex items-center rounded-sm border border-cream/25 px-3.5 transition hover:border-cream/60"><svg viewBox="0 0 32 32" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.5.7 4.9 2 6.9L3.2 29l6.7-2c2 1.1 4.2 1.6 6.1 1.6 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23.1c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4 1.2 1.2-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.5 9.9 10.2 5.3 16 5.3S26.5 9.9 26.5 15.6 21.8 26.1 16 26.1z"/></svg></a>}
-                      </>
+                      <a href={waModelo(m.nome)} target="_blank" rel="noopener" data-track={`card-${m.id}`} class="flex-1 rounded-sm bg-cream px-4 py-3 text-center text-sm font-semibold text-ink transition hover:bg-fire">{m.por ? "Pedir pelo WhatsApp" : "Consultar preço"}</a>
                     )}
                   </div>
                   <a href={`${SITE}/modelos/${m.id}/`} class="mt-3 text-sm text-cream/45 underline-offset-2 hover:text-cream hover:underline">Ficha técnica</a>
@@ -375,13 +363,9 @@ const linhas = [
                 <p id="r-lucro" class="font-display mt-1 text-5xl font-bold tracking-tight text-fire tabular-nums">R$ 0</p>
                 <p id="r-aviso" class="mt-2 text-sm text-cream/60">Escolha pelo menos 3 bikes.</p>
               </div>
-              <button type="button" id="sim-carrinho" data-cart-open disabled
-                class="mt-6 flex w-full items-center justify-center rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2 disabled:pointer-events-none disabled:opacity-35">
-                Finalizar compra no carrinho
-              </button>
               <a id="sim-enviar" href="#" target="_blank" rel="noopener" data-track="simulador" aria-disabled="true"
-                class="mt-2 flex items-center justify-center rounded-sm border border-cream/20 px-6 py-3.5 text-sm font-semibold transition hover:border-cream/60 aria-disabled:pointer-events-none aria-disabled:opacity-35">
-                Prefiro enviar pelo WhatsApp
+                class="mt-6 flex w-full items-center justify-center rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2 aria-disabled:pointer-events-none aria-disabled:opacity-35">
+                Enviar pedido pelo WhatsApp
               </a>
               <p class="mt-3 text-xs text-cream/40">Valores sem frete e impostos. O comercial confirma estoque e preço final.</p>
             </aside>
@@ -463,102 +447,6 @@ const linhas = [
       class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-xl transition hover:scale-105">
       <svg viewBox="0 0 32 32" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.5.7 4.9 2 6.9L3.2 29l6.7-2c2 1.1 4.2 1.6 6.1 1.6 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23.1c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4 1.2 1.2-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.5 9.9 10.2 5.3 16 5.3S26.5 9.9 26.5 15.6 21.8 26.1 16 26.1zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
     </a>
-
-    <!-- CARRINHO (gaveta lateral). Demonstração: nada é cobrado e nenhum dado sai do navegador. -->
-    <div id="cart" class="pointer-events-none fixed inset-0 z-[70]" aria-hidden="true">
-      <div data-cart-close class="cart-fade absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300"></div>
-      <aside role="dialog" aria-modal="true" aria-labelledby="cart-titulo"
-        class="cart-panel absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col bg-ink-2 shadow-2xl transition-transform duration-300 ease-out">
-        <header class="flex items-center justify-between border-b border-cream/10 px-6 py-5">
-          <div>
-            <h2 id="cart-titulo" class="font-display text-xl font-bold">Seu carrinho</h2>
-            <ol class="mt-1 flex gap-3 text-xs text-cream/40">
-              <li data-etapa-ind="1">1. Carrinho</li><li data-etapa-ind="2">2. Dados da loja</li><li data-etapa-ind="3">3. Pedido</li>
-            </ol>
-          </div>
-          <button type="button" data-cart-close aria-label="Fechar carrinho" class="h-10 w-10 rounded-sm text-2xl text-cream/60 transition hover:bg-cream/10 hover:text-cream">×</button>
-        </header>
-        <p class="border-b border-fire/30 bg-fire/10 px-6 py-2.5 text-xs text-fire-3">Versão de demonstração: nenhum pagamento é cobrado e os dados não são enviados.</p>
-
-        <!-- Etapa 1: itens -->
-        <section data-etapa="1" class="flex min-h-0 flex-1 flex-col">
-          <ul id="cart-itens" class="min-h-0 flex-1 divide-y divide-cream/10 overflow-y-auto px-6" data-lenis-prevent></ul>
-          <div id="cart-vazio" class="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center text-cream/55">
-            <p>Seu carrinho está vazio.</p>
-            <a href="#modelos" data-cart-close class="font-semibold text-cream underline decoration-fire decoration-2 underline-offset-4">Ver modelos e preços</a>
-          </div>
-          <footer class="border-t border-cream/10 px-6 py-5">
-            <div class="h-1.5 overflow-hidden rounded-full bg-cream/10"><div id="cart-barra" class="h-full w-0 bg-fire transition-all duration-500"></div></div>
-            <p id="cart-minimo" class="mt-2 text-sm text-cream/60"></p>
-            <dl class="mt-4 space-y-1.5 text-sm">
-              <div class="flex justify-between"><dt class="text-cream/60">Subtotal</dt><dd id="cart-subtotal" class="font-semibold tabular-nums">R$ 0</dd></div>
-              <div class="flex justify-between"><dt class="text-cream/60">Frete</dt><dd class="text-cream/60">Calculado pela cidade</dd></div>
-            </dl>
-            <button type="button" id="cart-avancar" disabled class="mt-5 w-full rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2 disabled:pointer-events-none disabled:opacity-35">Continuar</button>
-          </footer>
-        </section>
-
-        <!-- Etapa 2: dados da loja -->
-        <form data-etapa="2" id="cart-form" hidden class="flex min-h-0 flex-1 flex-col" novalidate>
-          <div class="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-6" data-lenis-prevent>
-            <fieldset class="space-y-3">
-              <legend class="mb-2 font-semibold">Dados da loja</legend>
-              <label class="block text-sm text-cream/60">CNPJ<input name="cnpj" required inputmode="numeric" placeholder="00.000.000/0000-00" class="campo" /></label>
-              <label class="block text-sm text-cream/60">Razão social<input name="razao" required class="campo" /></label>
-              <label class="block text-sm text-cream/60">Nome do responsável<input name="nome" required autocomplete="name" class="campo" /></label>
-              <div class="grid grid-cols-2 gap-3">
-                <label class="block text-sm text-cream/60">WhatsApp<input name="fone" required inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" class="campo" /></label>
-                <label class="block text-sm text-cream/60">E-mail<input name="email" type="email" required autocomplete="email" class="campo" /></label>
-              </div>
-            </fieldset>
-            <fieldset class="space-y-2">
-              <legend class="mb-2 font-semibold">Entrega</legend>
-              <label class="opcao"><input type="radio" name="entrega" value="entrega" checked /> <span><b>Receber na loja</b><br /><span class="text-cream/55">Até 2 semanas. Frete calculado pela cidade.</span></span></label>
-              <label class="opcao"><input type="radio" name="entrega" value="retirada" /> <span><b>Retirar em Guarulhos (SP)</b><br /><span class="text-cream/55">Com horário marcado. Sem frete.</span></span></label>
-              <div id="cart-endereco" class="grid grid-cols-[1fr_2fr] gap-3 pt-1">
-                <label class="block text-sm text-cream/60">CEP<input name="cep" inputmode="numeric" placeholder="00000-000" class="campo" /></label>
-                <label class="block text-sm text-cream/60">Cidade / UF<input name="cidade" placeholder="São Paulo / SP" class="campo" /></label>
-              </div>
-            </fieldset>
-            <fieldset class="space-y-2">
-              <legend class="mb-2 font-semibold">Pagamento</legend>
-              <label class="opcao"><input type="radio" name="pagamento" value="Pix" checked /> <span><b>Pix</b><br /><span class="text-cream/55">Aprovação na hora.</span></span></label>
-              <label class="opcao"><input type="radio" name="pagamento" value="Boleto" /> <span><b>Boleto</b><br /><span class="text-cream/55">Compensa em até 3 dias úteis.</span></span></label>
-              <label class="opcao"><input type="radio" name="pagamento" value="Transferência" /> <span><b>Transferência bancária</b><br /><span class="text-cream/55">Dados enviados após a confirmação.</span></span></label>
-            </fieldset>
-            <p id="cart-erro" class="hidden text-sm text-fire-3" role="alert">Preencha os campos obrigatórios.</p>
-          </div>
-          <footer class="flex gap-2 border-t border-cream/10 px-6 py-5">
-            <button type="button" data-voltar class="rounded-sm border border-cream/20 px-5 py-4 font-semibold transition hover:border-cream/60">Voltar</button>
-            <button type="submit" class="flex-1 rounded-sm bg-fire px-6 py-4 font-semibold text-ink transition hover:bg-fire-2">Finalizar pedido</button>
-          </footer>
-        </form>
-
-        <!-- Etapa 3: confirmação -->
-        <section data-etapa="3" hidden class="flex min-h-0 flex-1 flex-col">
-          <div class="min-h-0 flex-1 overflow-y-auto px-6 py-8" data-lenis-prevent>
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-fire text-2xl text-ink">✓</div>
-            <h3 class="font-display mt-5 text-3xl font-bold">Pedido recebido</h3>
-            <p class="mt-1 text-cream/60">Número <b id="ok-numero" class="text-cream"></b></p>
-            <div id="ok-pagamento" class="mt-6 rounded-sm border border-dashed border-cream/25 p-5 text-sm text-cream/70"></div>
-            <h4 class="mt-8 font-semibold">Resumo</h4>
-            <ul id="ok-itens" class="mt-2 divide-y divide-cream/10 border-y border-cream/10 text-sm"></ul>
-            <p class="mt-3 flex justify-between text-sm"><span class="text-cream/60">Total dos produtos</span><b id="ok-total" class="tabular-nums"></b></p>
-            <h4 class="mt-8 font-semibold">Próximos passos</h4>
-            <ol class="mt-2 list-decimal space-y-1.5 pl-5 text-sm text-cream/65">
-              <li>O comercial confirma o estoque e calcula o frete.</li>
-              <li>Você recebe a confirmação por WhatsApp e e-mail.</li>
-              <li>Após o pagamento, as bikes são enviadas em até 2 semanas.</li>
-            </ol>
-          </div>
-          <footer class="border-t border-cream/10 px-6 py-5">
-            <button type="button" id="ok-novo" class="w-full rounded-sm bg-cream px-6 py-4 font-semibold text-ink transition hover:bg-fire">Fazer outro pedido</button>
-          </footer>
-        </section>
-      </aside>
-    </div>
-
-    <div id="toast" role="status" aria-live="polite" class="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 translate-y-24 rounded-sm bg-cream px-5 py-3 text-sm font-semibold text-ink opacity-0 shadow-2xl transition duration-300"></div>
 
     <script>
       import "../scripts/main.ts";
