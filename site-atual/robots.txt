@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://daithyabikes.com.br/sitemap.xml

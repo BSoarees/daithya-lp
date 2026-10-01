@@ -1,0 +1,14 @@
+// Publica no mesmo Worker que já atende daithyabikes.com.br na conta do Derick.
+// Só arquivos estáticos: o site não tem nada rodando no servidor.
+{
+  "name": "daithya-bikes",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist-oficial",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "daithyabikes.com.br", "custom_domain": true },
+    { "pattern": "www.daithyabikes.com.br", "custom_domain": true }
+  ]
+}

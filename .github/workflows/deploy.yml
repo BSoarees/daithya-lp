@@ -23,6 +23,8 @@ jobs:
       - uses: withastro/action@v3
         with:
           node-version: 24
+        env:
+          DEMO: "1"
 
   deploy:
     needs: build

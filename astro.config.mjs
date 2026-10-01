@@ -1,9 +1,14 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
-// Publicado em GitHub Pages: https://bsoarees.github.io/daithya-lp/
+// Duas saídas a partir do mesmo código:
+// - oficial (padrão): daithyabikes.com.br, na raiz, aparece no Google
+// - demonstração (DEMO=1): GitHub Pages em /daithya-lp, fora do Google
+const demo = process.env.DEMO === "1";
+
 export default defineConfig({
-  site: "https://bsoarees.github.io",
-  base: "/daithya-lp",
-  vite: { plugins: [tailwindcss()] },
+  site: demo ? "https://bsoarees.github.io" : "https://daithyabikes.com.br",
+  base: demo ? "/daithya-lp" : "/",
+  outDir: demo ? "dist" : "dist-oficial",
+  vite: { plugins: [tailwindcss()], define: { "import.meta.env.DEMO": JSON.stringify(demo) } },
 });
